@@ -24,7 +24,7 @@ namespace AuthingNetCoreExample.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        [Authorize("profile")]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

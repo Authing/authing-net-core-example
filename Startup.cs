@@ -44,8 +44,8 @@ namespace AuthingNetCoreExample
             services.AddAuthorization(options =>
             {
                 // 可以在此处增加更精细的权限定义
-                // 然后 Controller 中使用 [Authorize("read:messages")] 即可
-                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+                // 然后 Controller 中使用 [Authorize("profile")] 即可
+                options.AddPolicy("profile", policy => policy.Requirements.Add(new HasScopeRequirement("profile", domain)));
             });
 
             // register the scope authorization handler
