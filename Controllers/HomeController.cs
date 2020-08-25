@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -19,12 +15,16 @@ namespace AuthingNetCoreExample.Controllers
 
         public IConfiguration Configuration { get; }
 
-        [HttpGet]
-        public void Home()
+        [Authorize]
+        public string Home()
         {
-            string clientId = Configuration["Authing:OidcClientId"];
-            string redirectUrl = Configuration["Authing:OidcRedirectUrl"];
-            Response.Redirect($"https://authing-net-sdk-demo.authing.cn/oauth/oidc/auth?client_id={clientId}&redirect_uri={redirectUrl}&scope=openid profile&response_type=code&state=jacket");
+            var claims = User.Claims;
+            var str = "";
+            foreach (var item in claims)
+            {
+                str = str + item.Type + ": " + item.Value + "\n";
+            }
+            return str;
         }
     }
 }
